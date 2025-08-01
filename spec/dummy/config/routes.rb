@@ -1,3 +1,3 @@
 Rails.application.routes.draw do
-  mount FaspClient::Engine => "/fasp_client"
+  mount FaspClient::Engine => "/fasp"
 end
