@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    fasp_rails (0.1.0)
+    fasp_client (0.1.0)
       rails (>= 8.0.2)
 
 GEM
@@ -254,7 +254,7 @@ PLATFORMS
   arm64-darwin
 
 DEPENDENCIES
-  fasp_rails!
+  fasp_client!
   propshaft
   puma
   rspec (~> 3.13)

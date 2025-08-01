@@ -1,2 +1,2 @@
-FaspRails::Engine.routes.draw do
+FaspClient::Engine.routes.draw do
 end

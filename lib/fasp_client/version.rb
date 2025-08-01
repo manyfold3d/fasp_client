@@ -1,3 +1,3 @@
-module FaspRails
+module FaspClient
   VERSION = "0.1.0"
 end

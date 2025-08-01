@@ -1,13 +1,13 @@
-require_relative "lib/fasp_rails/version"
+require_relative "lib/fasp_client/version"
 
 Gem::Specification.new do |spec|
-  spec.name        = "fasp_rails"
-  spec.version     = FaspRails::VERSION
+  spec.name        = "fasp_client"
+  spec.version     = FaspClient::VERSION
   spec.authors     = [ "James Smith" ]
   spec.email       = [ "james@floppy.org.uk" ]
   spec.homepage    = "TODO"
-  spec.summary     = "TODO: Summary of FaspRails."
-  spec.description = "TODO: Description of FaspRails."
+  spec.summary     = "TODO: Summary of FaspClient."
+  spec.description = "TODO: Description of FaspClient."
   spec.license     = "MIT"
 
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the "allowed_push_host"

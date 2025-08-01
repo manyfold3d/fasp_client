@@ -1,7 +1,7 @@
 require "test_helper"
 
-class FaspRailsTest < ActiveSupport::TestCase
+class FaspClientTest < ActiveSupport::TestCase
   test "it has a version number" do
-    assert FaspRails::VERSION
+    assert FaspClient::VERSION
   end
 end
