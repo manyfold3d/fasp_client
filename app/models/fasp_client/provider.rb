@@ -16,5 +16,9 @@ module FaspClient
       self.uuid = SecureRandom.uuid
       self.ed25519_signing_key = Ed25519::SigningKey.generate
     end
+
+    def verify_key
+      Ed25519::VerifyKey.new(Base64.strict_decode64(public_key))
+    end
   end
 end
