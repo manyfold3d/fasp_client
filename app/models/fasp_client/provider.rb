@@ -20,5 +20,9 @@ module FaspClient
     def verify_key
       Ed25519::VerifyKey.new(Base64.strict_decode64(public_key))
     end
+
+    def fingerprint
+      Digest::SHA256.base64digest(verify_key)
+    end
   end
 end
