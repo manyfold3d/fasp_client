@@ -5,7 +5,13 @@ module FaspClient
     def create
       attributes = params.deep_transform_keys(&:underscore).expect(provider: [ :name, :base_url, :server_id, :public_key ])
       p = Provider.create(attributes)
-      head p.valid? ? :created : :bad_request
+      if p.valid?
+        render json: {
+          registrationCompletionUri: providers_url
+        }, status: :created
+      else
+        head :bad_request
+      end
     end
   end
 end

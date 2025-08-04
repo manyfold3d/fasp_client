@@ -35,5 +35,21 @@ RSpec.describe "Providers", type: :request do
         expect(response).to have_http_status :bad_request
       end
     end
+
+    context "when request succeeds" do
+      before { request }
+
+      it "responds with JSON" do
+        expect response.headers["Content-Type"] == "application/json"
+      end
+
+      it "responds with a generated ID for the provider"
+
+      it "responds with a local public key"
+
+      it "responds with a completion URI" do
+        expect(response.parsed_body["registrationCompletionUri"]).to eq "http://www.example.com/fasp/providers"
+      end
+    end
   end
 end
