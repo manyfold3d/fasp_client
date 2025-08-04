@@ -2,5 +2,7 @@ require "fasp_client/version"
 require "fasp_client/engine"
 
 module FaspClient
-  # Your code goes here...
+    def self.table_name_prefix
+      "fasp_client_"
+    end
 end
