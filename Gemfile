@@ -17,3 +17,5 @@ gem "rubocop-rails-omakase", require: false
 
 gem "rspec-rails", "~> 8.0"
 gem "byebug", group: [ :development, :test ]
+
+gem "rspec-uuid", "~> 0.6.0", group: [ :development, :test ]

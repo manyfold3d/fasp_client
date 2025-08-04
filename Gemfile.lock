@@ -208,6 +208,8 @@ GEM
       rspec-mocks (~> 3.13)
       rspec-support (~> 3.13)
     rspec-support (3.13.4)
+    rspec-uuid (0.6.0)
+      rspec-expectations (>= 3)
     rubocop (1.79.1)
       json (~> 2.3)
       language_server-protocol (~> 3.17.0.2)
@@ -264,6 +266,7 @@ DEPENDENCIES
   propshaft
   puma
   rspec-rails (~> 8.0)
+  rspec-uuid (~> 0.6.0)
   rubocop-rails-omakase
   sqlite3
 

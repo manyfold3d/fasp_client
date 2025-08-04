@@ -12,6 +12,7 @@
 
 ActiveRecord::Schema[8.0].define(version: 2025_08_01_150509) do
   create_table "fasp_client_providers", force: :cascade do |t|
+    t.string "uuid"
     t.string "name"
     t.string "base_url"
     t.string "server_id"

@@ -7,6 +7,7 @@ module FaspClient
       p = Provider.create(attributes)
       if p.valid?
         render json: {
+          faspId: p.uuid,
           registrationCompletionUri: providers_url
         }, status: :created
       else

@@ -43,7 +43,9 @@ RSpec.describe "Providers", type: :request do
         expect response.headers["Content-Type"] == "application/json"
       end
 
-      it "responds with a generated ID for the provider"
+      it "responds with a generated ID for the provider" do
+        expect(response.parsed_body["faspId"]).to be_a_uuid
+      end
 
       it "responds with a local public key"
 
