@@ -2,6 +2,7 @@ PATH
   remote: .
   specs:
     fasp_client (0.1.0)
+      ed25519 (~> 1.4)
       rails (>= 8.0.2)
 
 GEM
@@ -90,6 +91,7 @@ GEM
     date (3.4.1)
     diff-lcs (1.6.2)
     drb (2.2.3)
+    ed25519 (1.4.0)
     erb (5.0.2)
     erubi (1.13.1)
     globalid (1.2.1)

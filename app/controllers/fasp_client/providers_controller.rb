@@ -8,6 +8,7 @@ module FaspClient
       if p.valid?
         render json: {
           faspId: p.uuid,
+          publicKey: Base64.strict_encode64(p.ed25519_signing_key.verify_key.to_bytes),
           registrationCompletionUri: providers_url
         }, status: :created
       else

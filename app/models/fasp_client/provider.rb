@@ -1,3 +1,6 @@
+require "ed25519"
+require "fasp_client/ed25519_signing_key_coder"
+
 module FaspClient
   class Provider < ApplicationRecord
     validates :uuid, presence: true
@@ -5,9 +8,13 @@ module FaspClient
     validates :base_url, presence: true
     validates :server_id, presence: true
     validates :public_key, presence: true
+    validates :ed25519_signing_key, presence: true
 
-    before_create do
+    serialize :ed25519_signing_key, coder: FaspClient::Ed25519SigningKeyCoder
+
+    before_validation on: :create do
       self.uuid = SecureRandom.uuid
+      self.ed25519_signing_key = Ed25519::SigningKey.generate
     end
   end
 end

@@ -23,4 +23,5 @@ Gem::Specification.new do |spec|
   end
 
   spec.add_dependency "rails", ">= 8.0.2"
+  spec.add_dependency "ed25519", "~> 1.4"
 end

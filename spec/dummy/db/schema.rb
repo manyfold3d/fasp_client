@@ -17,6 +17,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_01_150509) do
     t.string "base_url"
     t.string "server_id"
     t.string "public_key"
+    t.string "ed25519_signing_key"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

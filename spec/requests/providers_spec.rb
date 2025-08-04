@@ -47,7 +47,11 @@ RSpec.describe "Providers", type: :request do
         expect(response.parsed_body["faspId"]).to be_a_uuid
       end
 
-      it "responds with a local public key"
+      it "responds with the verify key for the local server" do
+        expect(
+          Ed25519::VerifyKey.new(Base64.strict_decode64(response.parsed_body["publicKey"])).inspect
+        ).to eq FaspClient::Provider.last.ed25519_signing_key.verify_key.inspect
+      end
 
       it "responds with a completion URI" do
         expect(response.parsed_body["registrationCompletionUri"]).to eq "http://www.example.com/fasp/providers"
