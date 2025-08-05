@@ -58,4 +58,30 @@ RSpec.describe "Providers", type: :request do
       end
     end
   end
+
+  describe "GET /providers" do
+    context "with a pending registration" do
+      let!(:provider) do
+        FaspClient::Provider.create(
+          name: "Example FASP",
+          base_url: "https://fasp.example.com",
+          server_id: "b2ks6vm8p23w",
+          public_key: "pDnfhQyTX06RNDhyDI7yMlSohxcpOzHF/xUbJ5DTgAA="
+        )
+      end
+
+      before do
+        get "/fasp/providers"
+      end
+
+      it "shows provider in list" do
+        expect(response.body).to include(provider.name)
+      end
+
+      it "shows provider fingerprint" do
+        expect(response.body).to include(provider.fingerprint)
+      end
+
+    end
+  end
 end
