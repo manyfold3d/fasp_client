@@ -25,8 +25,7 @@ gem "fasp_client", github: "manyfold3d/fasp_client"
 Install and run migrations
 
 ```shell
-bin/rails fasp_client:install:migrations
-bin/rails rake db:migrate
+bin/rails fasp_client:install:migrations && bin/rails db:migrate
 ```
 
 ## Usage

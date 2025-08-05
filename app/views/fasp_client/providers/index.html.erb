@@ -7,12 +7,14 @@
 		</h2>
 		<p>Requested at: <%= provider.created_at %></p>
 
-		<p>
-			Fingerprint:
-			<code>
-				<%= provider.fingerprint %>
-			</code>
-		</p>
+		<% if provider.pending? %>
+			<p>
+				Fingerprint:
+				<code>
+					<%= provider.fingerprint %>
+				</code>
+			</p>
+		<% end %>
 	</div>
 
 <% end %>
