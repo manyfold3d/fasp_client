@@ -17,8 +17,8 @@ module FaspClient
     attribute :capabilities, :json, default: []
 
     before_validation on: :create do
-      self.uuid = SecureRandom.uuid
-      self.ed25519_signing_key = Ed25519::SigningKey.generate
+      self.uuid ||= SecureRandom.uuid
+      self.ed25519_signing_key ||= Ed25519::SigningKey.generate
     end
 
     def verify_key
