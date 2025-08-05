@@ -81,7 +81,36 @@ RSpec.describe "Providers", type: :request do
       it "shows provider fingerprint" do
         expect(response.body).to include(provider.fingerprint)
       end
+    end
+  end
 
+  describe "PATCH /providers/{id}" do
+    context "with a pending registration" do
+      let(:provider) do
+        FaspClient::Provider.create(
+          name: "Example FASP",
+          base_url: "https://fasp.example.com",
+          server_id: "b2ks6vm8p23w",
+          public_key: "pDnfhQyTX06RNDhyDI7yMlSohxcpOzHF/xUbJ5DTgAA="
+        )
+      end
+
+      it "redirects back to provider list page" do
+        patch "/fasp/providers/#{provider.to_param}", params: { provider: { status: "pending" } }
+        expect(response).to redirect_to("/fasp/providers")
+      end
+
+      it "can accept provider" do
+        expect {
+          patch "/fasp/providers/#{provider.to_param}", params: { provider: { status: "approved" } }
+        }.to change { provider.reload.status }.from("pending").to("approved")
+      end
+
+      it "can deny provider" do
+        expect {
+          patch "/fasp/providers/#{provider.to_param}", params: { provider: { status: "denied" } }
+        }.to change { provider.reload.status }.from("pending").to("denied")
+      end
     end
   end
 end

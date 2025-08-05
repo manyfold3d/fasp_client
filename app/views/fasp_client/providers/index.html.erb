@@ -6,6 +6,7 @@
 			<%= link_to provider.name, provider.base_url %>
 		</h2>
 		<p>Requested at: <%= provider.created_at %></p>
+		<p>Status: <%= provider.status %></p>
 
 		<% if provider.pending? %>
 			<p>
@@ -14,6 +15,8 @@
 					<%= provider.fingerprint %>
 				</code>
 			</p>
+			<%= button_to "Approve", provider, method: :patch, params: {provider: {status: "approved"}}%>
+			<%= button_to "Deny", provider, method: :patch, params: {provider: {status: "denied"}}%>
 		<% end %>
 	</div>
 

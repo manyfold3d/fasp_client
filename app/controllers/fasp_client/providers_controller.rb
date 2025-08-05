@@ -20,5 +20,15 @@ module FaspClient
     def index
       @providers = Provider.all
     end
+
+    def update
+      @provider = Provider.find_by(id: params[:id])
+      provider_params = params.expect(provider: [ :status ])
+      if provider_params && @provider.update!(provider_params)
+        redirect_back_or_to providers_path
+      else
+        head :bad_request
+      end
+    end
   end
 end
