@@ -24,6 +24,7 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency "rails", "~> 8.0"
   spec.add_dependency "ed25519", "~> 1.4"
+  spec.add_dependency "linzer", "~> 0.7"
 
   spec.add_development_dependency "rubocop-rails-omakase", "~> 1.1"
   spec.add_development_dependency "rspec-rails", "~> 8.0"
