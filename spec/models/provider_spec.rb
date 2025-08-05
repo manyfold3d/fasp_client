@@ -32,10 +32,19 @@ describe FaspClient::Provider do
       expect(provider).to be_approved
     end
 
+    it "can be approved via update" do
+      provider.update!(status: "approved")
+      expect(provider).to be_approved
+    end
+
     it "can be denied" do
       provider.denied!
       expect(provider).to be_denied
     end
 
+    it "can be denied via update" do
+      provider.update!(status: "denied")
+      expect(provider).to be_denied
+    end
   end
 end
