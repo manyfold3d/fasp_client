@@ -14,6 +14,8 @@ module FaspClient
 
     serialize :ed25519_signing_key, coder: FaspClient::Ed25519SigningKeyCoder
 
+    attribute :capabilities, :json, default: []
+
     before_validation on: :create do
       self.uuid = SecureRandom.uuid
       self.ed25519_signing_key = Ed25519::SigningKey.generate
@@ -25,6 +27,18 @@ module FaspClient
 
     def fingerprint
       Digest::SHA256.base64digest(verify_key)
+    end
+
+    def has_capability?(capability, version = nil)
+      version ? capability_versions(capability).include?(version) : capability_versions(capability).any?
+    end
+
+    def capability_versions(capability)
+      capabilities.filter_map { |it| it["version"] if it["id"] == capability.to_s }
+    end
+
+    def capability_ids
+      capabilities.map { |it| it["id"] }.uniq.map(&:to_sym)
     end
   end
 end

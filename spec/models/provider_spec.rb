@@ -46,5 +46,59 @@ describe FaspClient::Provider do
       provider.update!(status: "denied")
       expect(provider).to be_denied
     end
+
+    it "has empty capabilities by default" do
+      expect(provider.capabilities).to eq []
+    end
+
+    it "stores capabilities via update" do
+      provider.update!(capabilities: [
+        { id: "trends", version: "1.0" },
+        { id: "account_search", version: "1.0" }
+      ])
+      expect(provider.capabilities).not_to be_empty
+    end
+  end
+
+  context "with known capabilities" do
+    subject(:provider) { described_class.create(good_attributes.merge(
+      capabilities: [
+        { id: "trends", version: "1.0" },
+        { id: "trends", version: "1.1" },
+        { id: "account_search", version: "1.0" }
+      ]
+    ))}
+
+    it "has an array of capabilities" do
+      expect(provider.capabilities.first).to eq({ "id" => "trends", "version" => "1.0" })
+    end
+
+    it "can be queried by capability id" do
+      expect(provider.has_capability? :trends).to be true
+    end
+
+    it "does not support unknown capabilities" do
+      expect(provider.has_capability? :debug).to be false
+    end
+
+    it "can be queried by capability id and version" do
+      expect(provider.has_capability? :trends, "1.0").to be true
+    end
+
+    it "does not support known capabilities with unknown versions" do
+      expect(provider.has_capability? :trends, "0.1").to be false
+    end
+
+    it "can list versions for capability" do
+      expect(provider.capability_versions :trends).to eq [ "1.0", "1.1" ]
+    end
+
+    it "gets no versions for unknown capabilities" do
+      expect(provider.capability_versions :debug).to eq []
+    end
+
+    it "lists available capability IDs" do
+      expect(provider.capability_ids).to eq [ :trends, :account_search ]
+    end
   end
 end
