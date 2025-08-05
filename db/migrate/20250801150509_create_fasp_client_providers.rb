@@ -7,6 +7,7 @@ class CreateFaspClientProviders < ActiveRecord::Migration[8.0]
       t.string :server_id
       t.string :public_key
       t.string :ed25519_signing_key
+      t.integer :status
       t.timestamps
     end
   end

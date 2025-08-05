@@ -22,5 +22,20 @@ describe FaspClient::Provider do
     it "should generate a key fingerprint for the remote server" do
       expect(provider.fingerprint).to eq "i3ZYehBFp2THB39mcU1xJH459YzOcrrvgO8Lpd83haI="
     end
+
+    it "has pending status by default" do
+      expect(provider).to be_pending
+    end
+
+    it "can be approved" do
+      provider.approved!
+      expect(provider).to be_approved
+    end
+
+    it "can be denied" do
+      provider.denied!
+      expect(provider).to be_denied
+    end
+
   end
 end

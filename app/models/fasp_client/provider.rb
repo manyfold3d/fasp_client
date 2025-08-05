@@ -3,6 +3,8 @@ require "fasp_client/ed25519_signing_key_coder"
 
 module FaspClient
   class Provider < ApplicationRecord
+    enum :status, { pending: nil, approved: 1, denied: -1 }, default: :pending, validate: true
+
     validates :uuid, presence: true
     validates :name, presence: true
     validates :base_url, presence: true
