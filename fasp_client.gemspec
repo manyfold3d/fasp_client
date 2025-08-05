@@ -22,6 +22,11 @@ Gem::Specification.new do |spec|
     Dir["{app,config,db,lib}/**/*", "LICENSE.md", "Rakefile", "README.md"]
   end
 
-  spec.add_dependency "rails", ">= 8.0.2"
+  spec.add_dependency "rails", "~> 8.0"
   spec.add_dependency "ed25519", "~> 1.4"
+
+  spec.add_development_dependency "rubocop-rails-omakase", "~> 1.1"
+  spec.add_development_dependency "rspec-rails", "~> 8.0"
+  spec.add_development_dependency "byebug", "~> 12.0"
+  spec.add_development_dependency "rspec-uuid", "~> 0.6"
 end
