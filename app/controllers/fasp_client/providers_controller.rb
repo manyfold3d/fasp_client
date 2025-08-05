@@ -16,5 +16,9 @@ module FaspClient
         head :bad_request
       end
     end
+
+    def index
+      @providers = Provider.all
+    end
   end
 end

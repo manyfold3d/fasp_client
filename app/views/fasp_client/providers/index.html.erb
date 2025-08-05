@@ -1,0 +1,18 @@
+<h1>FASP Providers</h1>
+
+<% @providers.each do |provider| %>
+	<div>
+		<h2>
+			<%= link_to provider.name, provider.base_url %>
+		</h2>
+		<p>Requested at: <%= provider.created_at %></p>
+
+		<p>
+			Fingerprint:
+			<code>
+				<%= provider.fingerprint %>
+			</code>
+		</p>
+	</div>
+
+<% end %>
