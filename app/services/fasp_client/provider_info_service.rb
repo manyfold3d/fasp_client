@@ -7,6 +7,17 @@ module FaspClient
       @provider = provider
     end
 
+    def update_provider!
+      @provider.update!(to_provider_attributes)
+    end
+
+    def to_provider_attributes
+      @response ||= JSON.parse(get.body)
+      @response.slice(
+        "capabilities"
+      ).deep_symbolize_keys
+    end
+
     private
 
     def get
@@ -36,7 +47,7 @@ module FaspClient
           OpenSSL::ASN1::Integer(OpenSSL::BN.new(0)),
           OpenSSL::ASN1.Sequence(
             [
-              OpenSSL::ASN1.ObjectId('ED25519')
+              OpenSSL::ASN1.ObjectId("ED25519")
             ]
           ),
           OpenSSL::ASN1.OctetString(OpenSSL::ASN1.OctetString(@provider.ed25519_signing_key.to_bytes).to_der)
@@ -52,6 +63,5 @@ module FaspClient
     def linzer_key
       Linzer.new_ed25519_key(private_pem, @provider.server_id)
     end
-
   end
 end

@@ -1,6 +1,5 @@
 describe FaspClient::ProviderInfoService, :vcr do
-
-  context "when querying a FASP provider info endpoint", vcr: {cassette_name: "services/provider_info_service_spec/success"} do
+  context "when querying a FASP provider info endpoint", vcr: { cassette_name: "services/provider_info_service_spec/success" } do
     let(:provider) {
       # This setup is from a manually-registered local fediscoverer instance;
       # if you need to change the cassettes to run against a real instance,
@@ -19,6 +18,25 @@ describe FaspClient::ProviderInfoService, :vcr do
     it "succeeds in fetching data" do
       expect(service.send(:get).code).to eq "200"
     end
-  end
 
+    it "succeeds in fetching data" do
+      expect(service.to_provider_attributes).to include({
+        capabilities: [
+          { id: "account_search", version: "0.1" },
+          { id: "data_sharing", version: "0.1" },
+          { id: "follow_recommendation", version: "0.1" },
+          { id: "trends", version: "0.1" }
+        ]
+      })
+    end
+
+    it "can automatically update the provider" do
+      service.update_provider!
+      expect(provider.has_capability? :trends, "0.1").to be true
+    end
+
+    it "verifies content digest of response"
+
+    it "verifies signature of response"
+  end
 end
