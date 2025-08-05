@@ -43,7 +43,7 @@ Add the base URL to your nodeinfo metadata:
 "faspBaseUrl" => Rails.application.routes.url_helpers.fasp_client_url
 ```
 
-If you're using Federails, you can add this to the metadata using the (soon-to-be-released) configuration option:
+If you're using [Federails](https://gitlab.com/experimentslabs/federails), you can add this to the metadata using the configuration option (currently only on the `nodeinfo-metadata` branch):
 
 ```ruby
 conf.nodeinfo_metadata = -> do
