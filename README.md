@@ -1,6 +1,8 @@
 # FaspClient
 A Rails engine that implements the non-provider side of the [Fediverse Auxiliary Service Provider (FASP)](https://fediscovery.org) standard.
 
+IMPORTANT NOTE: This code is in its very early days. The database migration will be changing up until the first release is tagged. DON'T use it in production yet, as you WILL need to rollback and re-migrate until it stabilises.
+
 ## Features
 
 * [Base URL discovery](https://github.com/mastodon/fediverse_auxiliary_service_provider_specifications/blob/main/general/v0.1/protocol_basics.md#base-url) ✅
