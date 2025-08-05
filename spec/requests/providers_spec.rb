@@ -1,4 +1,4 @@
-require "rails_helper"
+require "rspec-uuid"
 
 # registration POST   /registration(.:format)              registrations#create
 
