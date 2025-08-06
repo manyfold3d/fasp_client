@@ -1,0 +1,68 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://localhost:3000/fasp/provider_info
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - localhost:3000
+      Date:
+      - 2025-08-05 16:57:44 UTC
+      Content-Digest:
+      - 'sha-256=:47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=:'
+      Signature:
+      - 'sig1=:GO2axDR/TvSRGiAmuWCtrGMJdSMKRymjcc1Q6rHdafkeKvLwddY8Y2hCHLIYmwGUg7Vw5gGwMU/JQsr1sMf4Aw==:'
+      Signature-Input:
+      - sig1=("@method" "@target-uri" "content-digest");created=1754413064;keyid="7"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Xss-Protection:
+      - '0'
+      X-Content-Type-Options:
+      - nosniff
+      X-Permitted-Cross-Domain-Policies:
+      - none
+      Referrer-Policy:
+      - strict-origin-when-cross-origin
+      Content-Type:
+      - application/json; charset=utf-8
+      Vary:
+      - Accept
+      Content-Digest:
+      - 'sha-256=:AGiSIDFxhShUc7MMR6S9L0QI26LP1AszgQpFzWCxBfI=:'
+      Signature:
+      - 'sig1=:ZaL8ZqdoDN4iH4f1UqgXpQ5TkuyjfT15RkShhkAJeopLI39aPeTScIDL0ZpVnSGn6ANJpMpQsf3sux9cpupxAg==:'
+      Signature-Input:
+      - sig1=("@status" "content-digest");created=1754413064
+      Etag:
+      - W/"00689220317185285473b30c47a4bd2f"
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      X-Request-Id:
+      - 70dcdf71-8e46-4b6c-8ba1-7f7bcd0d06e0
+      X-Runtime:
+      - '0.082951'
+      Server-Timing:
+      - start_processing.action_controller;dur=0.00, sql.active_record;dur=2.84, instantiation.active_record;dur=13.92,
+        process_action.action_controller;dur=70.32
+      Content-Length:
+      - '332'
+    body:
+      encoding: UTF-8
+      string: '{"name":"FaspBase","privacyPolicy":[{"url":"https://example.com/privacy","language":"en"}],"capabilities":[{"id":"account_search","version":"0.1"},{"id":"data_sharing","version":"0.1"},{"id":"follow_recommendation","version":"0.1"},{"id":"trends","version":"0.1"}],"signInUrl":"http://localhost:3000/session/new","contactEmail":"test@example.com","fediverseAccount":"@test@example.com"}'
+  recorded_at: Tue, 05 Aug 2025 16:57:44 GMT
+recorded_with: VCR 6.3.1

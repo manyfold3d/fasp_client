@@ -1,26 +1,17 @@
 describe FaspClient::Provider do
-  let(:good_attributes) do
-    {
-      name: "Example FASP",
-      base_url: "https://fasp.example.com",
-      server_id: "b2ks6vm8p23w",
-      public_key: "pDnfhQyTX06RNDhyDI7yMlSohxcpOzHF/xUbJ5DTgAA="
-    }
-  end
-
   it "is valid if created with good attributes" do
-    expect(described_class.new(good_attributes)).to be_valid
+    expect(described_class.new(attributes_for :provider)).to be_valid
   end
 
-  context "with a valid object" do
-    subject(:provider) { described_class.create(good_attributes) }
+  context "with a valid object", vcr: { cassette_name: "services/provider_info_service_spec/success" } do
+    subject(:provider) { create :provider, :registered }
 
     it "should decode a valid verify key for the remote server" do
       expect(provider.verify_key).to be_a(Ed25519::VerifyKey)
     end
 
     it "should generate a key fingerprint for the remote server" do
-      expect(provider.fingerprint).to eq "i3ZYehBFp2THB39mcU1xJH459YzOcrrvgO8Lpd83haI="
+      expect(provider.fingerprint).to eq "UfiY2qzXEwLzCcFMaW8a2AFyiWlSspnyf4DmqXoKquY="
     end
 
     it "has pending status by default" do
@@ -58,16 +49,48 @@ describe FaspClient::Provider do
       ])
       expect(provider.capabilities).not_to be_empty
     end
+
+    it "serialises and deserialises capabilities properly" do
+      provider.update!(capabilities: [
+        { id: "trends", version: "1.0" },
+        { id: "account_search", version: "1.0" }
+      ])
+      expect(provider.reload.capabilities).not_to be_empty
+    end
+
+    it "automatically fetches provider capabilities when approved" do
+      expect { provider.approved! }.to change { provider.has_capability? :account_search }.from(false).to(true)
+    end
+
+    it "automatically fetches privacy policy when approved" do
+      provider.approved!
+      expect(provider.privacy_policy).not_to be_empty
+    end
+
+    it "automatically fetches fediverse account when approved" do
+      provider.approved!
+      expect(provider.fediverse_account).to eq "@test@example.com"
+    end
+
+    it "automatically fetches contact email when approved" do
+      provider.approved!
+      expect(provider.contact_email).to eq "test@example.com"
+    end
+
+    it "automatically fetches signin URL when approved" do
+      provider.approved!
+      expect(provider.sign_in_url).to eq "http://localhost:3000/session/new"
+    end
   end
 
   context "with known capabilities" do
-    subject(:provider) { described_class.create(good_attributes.merge(
+    subject(:provider) { create :provider,
       capabilities: [
         { id: "trends", version: "1.0" },
         { id: "trends", version: "1.1" },
         { id: "account_search", version: "1.0" }
       ]
-    ))}
+    }
 
     it "has an array of capabilities" do
       expect(provider.capabilities.first).to eq({ "id" => "trends", "version" => "1.0" })

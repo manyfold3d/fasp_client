@@ -9,6 +9,10 @@ class CreateFaspClientProviders < ActiveRecord::Migration[8.0]
       t.string :ed25519_signing_key
       t.integer :status
       t.json :capabilities
+      t.json :privacy_policy
+      t.string :sign_in_url
+      t.string :contact_email
+      t.string :fediverse_account
       t.timestamps
     end
   end

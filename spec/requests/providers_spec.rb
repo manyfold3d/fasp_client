@@ -5,14 +5,7 @@ require "rspec-uuid"
 RSpec.describe "Providers", type: :request do
   describe "POST /registration" do
     let(:headers) { { "Content-Type" => "application/json" } }
-    let(:params) do
-      {
-        "name" => "Example FASP",
-        "baseUrl" => "https://fasp.example.com",
-        "serverId" => "b2ks6vm8p23w",
-        "publicKey" => "FbUJDVCftINc9FlgRu2jLagCVvOa7I2Myw8aidvkong="
-      }
-    end
+    let(:params) { attributes_for(:provider).transform_keys { |it| it.to_s.camelize(:lower) } }
     let(:request) { post "/fasp/registration", params: params, headers: headers, as: :json }
 
     it "succeeds" do
@@ -61,14 +54,7 @@ RSpec.describe "Providers", type: :request do
 
   describe "GET /providers" do
     context "with a pending registration" do
-      let!(:provider) do
-        FaspClient::Provider.create(
-          name: "Example FASP",
-          base_url: "https://fasp.example.com",
-          server_id: "b2ks6vm8p23w",
-          public_key: "pDnfhQyTX06RNDhyDI7yMlSohxcpOzHF/xUbJ5DTgAA="
-        )
-      end
+      let!(:provider) { create :provider }
 
       before do
         get "/fasp/providers"
@@ -85,15 +71,8 @@ RSpec.describe "Providers", type: :request do
   end
 
   describe "PATCH /providers/{id}" do
-    context "with a pending registration" do
-      let(:provider) do
-        FaspClient::Provider.create(
-          name: "Example FASP",
-          base_url: "https://fasp.example.com",
-          server_id: "b2ks6vm8p23w",
-          public_key: "pDnfhQyTX06RNDhyDI7yMlSohxcpOzHF/xUbJ5DTgAA="
-        )
-      end
+    context "with a pending registration", vcr: { cassette_name: "services/provider_info_service_spec/success" } do
+      let(:provider) { create :provider, :registered }
 
       it "redirects back to provider list page" do
         patch "/fasp/providers/#{provider.to_param}", params: { provider: { status: "pending" } }
