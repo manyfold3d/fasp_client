@@ -21,6 +21,8 @@ module FaspClient
       self.ed25519_signing_key ||= Ed25519::SigningKey.generate
     end
 
+    before_save :fetch_provider_info, if: -> { approved? && status_changed? }
+
     def verify_key
       Ed25519::VerifyKey.new(Base64.strict_decode64(public_key))
     end
@@ -39,6 +41,10 @@ module FaspClient
 
     def capability_ids
       capabilities.map { |it| it["id"] }.uniq.map(&:to_sym)
+    end
+
+    def fetch_provider_info
+      assign_attributes(ProviderInfoService.new(provider: self).to_provider_attributes) if approved?
     end
   end
 end

@@ -3,15 +3,15 @@ describe FaspClient::Provider do
     expect(described_class.new(attributes_for :provider)).to be_valid
   end
 
-  context "with a valid object" do
-    subject(:provider) { create :provider }
+  context "with a valid object", vcr: { cassette_name: "services/provider_info_service_spec/success" } do
+    subject(:provider) { create :provider, :registered }
 
     it "should decode a valid verify key for the remote server" do
       expect(provider.verify_key).to be_a(Ed25519::VerifyKey)
     end
 
     it "should generate a key fingerprint for the remote server" do
-      expect(provider.fingerprint).to eq "i3ZYehBFp2THB39mcU1xJH459YzOcrrvgO8Lpd83haI="
+      expect(provider.fingerprint).to eq "UfiY2qzXEwLzCcFMaW8a2AFyiWlSspnyf4DmqXoKquY="
     end
 
     it "has pending status by default" do
@@ -56,6 +56,10 @@ describe FaspClient::Provider do
         { id: "account_search", version: "1.0" }
       ])
       expect(provider.reload.capabilities).not_to be_empty
+    end
+
+    it "automatically fetches provider capabilities when approved" do
+      expect { provider.approved! }.to change { provider.has_capability? :account_search }.from(false).to(true)
     end
   end
 

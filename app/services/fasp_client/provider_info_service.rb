@@ -7,10 +7,6 @@ module FaspClient
       @provider = provider
     end
 
-    def update_provider!
-      @provider.update!(to_provider_attributes)
-    end
-
     def to_provider_attributes
       @response ||= JSON.parse(get.body)
       @response.slice(

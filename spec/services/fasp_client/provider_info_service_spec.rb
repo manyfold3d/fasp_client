@@ -18,11 +18,6 @@ describe FaspClient::ProviderInfoService, :vcr do
       })
     end
 
-    it "can automatically update the provider" do
-      service.update_provider!
-      expect(provider.has_capability? :trends, "0.1").to be true
-    end
-
     it "verifies content digest of response"
 
     it "verifies signature of response"

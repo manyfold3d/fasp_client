@@ -71,8 +71,8 @@ RSpec.describe "Providers", type: :request do
   end
 
   describe "PATCH /providers/{id}" do
-    context "with a pending registration" do
-      let(:provider) { create :provider }
+    context "with a pending registration", vcr: { cassette_name: "services/provider_info_service_spec/success" } do
+      let(:provider) { create :provider, :registered }
 
       it "redirects back to provider list page" do
         patch "/fasp/providers/#{provider.to_param}", params: { provider: { status: "pending" } }
