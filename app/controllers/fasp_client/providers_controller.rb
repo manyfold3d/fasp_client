@@ -23,8 +23,15 @@ module FaspClient
     end
 
     def update
-      provider_params = params.expect(provider: [ :status ])
-      if provider_params && @provider.update!(provider_params)
+      provider_params = params.expect(provider: [ :status, enable_capability: [ :id, :version ], disable_capability: [ :id, :version ] ])
+      head :bad_request and return unless provider_params
+      if provider_params[:enable_capability]
+        success = @provider.enable(provider_params[:enable_capability][:id], provider_params[:enable_capability][:version])
+        redirect_back_or_to edit_provider_path(@provider), notice: success ? "Enabled" : "Failed"
+      elsif provider_params[:disable_capability]
+        success = @provider.disable(provider_params[:disable_capability][:id], provider_params[:disable_capability][:version])
+        redirect_back_or_to edit_provider_path(@provider), notice: success ? "Disabled" : "Failed"
+      elsif @provider.update!(provider_params)
         redirect_back_or_to edit_provider_path(@provider)
       else
         head :bad_request
