@@ -1,0 +1,126 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://localhost:3000/fasp/provider_info
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - localhost:3000
+      Date:
+      - 2025-08-06 13:57:14 UTC
+      Content-Digest:
+      - 'sha-256=:47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=:'
+      Signature:
+      - 'sig1=:e2rbja8aIkYyWMo+0lq/aUcyJlupoVzNfGjH4MvUBsc+Y7Ck36QI63HRsZoj7VmWKRcacUc4sGJ+xxpiMt+kDw==:'
+      Signature-Input:
+      - sig1=("@method" "@target-uri" "content-digest");created=1754488634;keyid="7"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Xss-Protection:
+      - '0'
+      X-Content-Type-Options:
+      - nosniff
+      X-Permitted-Cross-Domain-Policies:
+      - none
+      Referrer-Policy:
+      - strict-origin-when-cross-origin
+      Content-Type:
+      - application/json; charset=utf-8
+      Vary:
+      - Accept
+      Content-Digest:
+      - 'sha-256=:AGiSIDFxhShUc7MMR6S9L0QI26LP1AszgQpFzWCxBfI=:'
+      Signature:
+      - 'sig1=:wneXEMPD+EWeIUQkDZSHZsww2WiwbMe+nbom4h2XKJfkADnbavEZ7wEqQMSb+CshH53pQtOZeh8bqXuT2yLvDw==:'
+      Signature-Input:
+      - sig1=("@status" "content-digest");created=1754488634
+      Etag:
+      - W/"00689220317185285473b30c47a4bd2f"
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      X-Request-Id:
+      - f20f65aa-35a0-4652-99d5-d2dae74a1c1c
+      X-Runtime:
+      - '0.038967'
+      Server-Timing:
+      - start_processing.action_controller;dur=0.00, sql.active_record;dur=2.88, instantiation.active_record;dur=0.01,
+        process_action.action_controller;dur=32.61
+      Content-Length:
+      - '332'
+    body:
+      encoding: UTF-8
+      string: '{"name":"FaspBase","privacyPolicy":[{"url":null,"language":null}],"capabilities":[{"id":"account_search","version":"0.1"},{"id":"data_sharing","version":"0.1"},{"id":"follow_recommendation","version":"0.1"},{"id":"trends","version":"0.1"}],"signInUrl":"http://localhost:3000/session/new","contactEmail":null,"fediverseAccount":null}'
+  recorded_at: Wed, 06 Aug 2025 13:57:14 GMT
+- request:
+    method: post
+    uri: http://localhost:3000/fasp/capabilities/trends/0/activation
+    body:
+      encoding: UTF-8
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - localhost:3000
+      Date:
+      - 2025-08-06 13:57:14 UTC
+      Content-Digest:
+      - 'sha-256=:47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=:'
+      Signature:
+      - 'sig1=:qMavHUw9TFxRhDo7jOVM8RMoqnF886RybmB4tVwTg8ttgnnxrcWPTHs68o0YCcTYOxCDVVf95M3fJjA8aC4ZAw==:'
+      Signature-Input:
+      - sig1=("@method" "@target-uri" "content-digest");created=1754488634;keyid="7"
+  response:
+    status:
+      code: 204
+      message: No Content
+    headers:
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Xss-Protection:
+      - '0'
+      X-Content-Type-Options:
+      - nosniff
+      X-Permitted-Cross-Domain-Policies:
+      - none
+      Referrer-Policy:
+      - strict-origin-when-cross-origin
+      Content-Digest:
+      - 'sha-256=:47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=:'
+      Signature:
+      - 'sig1=:F/9QpYlo48p35mcpvK4qDwvq0K8tnUMKS807sc8qle5ccBcqWs4astFu1jpEGaj058I6Ye7T3MYVNBnCHR+jDA==:'
+      Signature-Input:
+      - sig1=("@status" "content-digest");created=1754488635
+      Cache-Control:
+      - no-cache
+      X-Request-Id:
+      - 66107c28-c4cb-436c-9ff6-d1dd8863703b
+      X-Runtime:
+      - '0.040400'
+      Server-Timing:
+      - start_processing.action_controller;dur=0.00, sql.active_record;dur=6.69, instantiation.active_record;dur=0.01,
+        start_transaction.active_record;dur=0.00, transaction.active_record;dur=3.34,
+        process_action.action_controller;dur=36.36
+    body:
+      encoding: UTF-8
+      string: ''
+  recorded_at: Wed, 06 Aug 2025 13:57:15 GMT
+recorded_with: VCR 6.3.1
