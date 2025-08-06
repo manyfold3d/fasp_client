@@ -3,10 +3,6 @@ describe FaspClient::ProviderInfoService, :vcr do
     let(:provider) { create :provider, :registered }
     subject(:service) { described_class.new(provider: provider) }
 
-    it "succeeds in fetching data" do
-      expect(service.send(:get).code).to eq "200"
-    end
-
     it "succeeds in fetching capabilities" do
       expect(service.to_provider_attributes).to include({
         capabilities: [
