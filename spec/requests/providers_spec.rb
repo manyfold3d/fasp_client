@@ -47,7 +47,7 @@ RSpec.describe "Providers", type: :request do
       end
 
       it "responds with a completion URI" do
-        expect(response.parsed_body["registrationCompletionUri"]).to eq "http://www.example.com/fasp/providers"
+        expect(response.parsed_body["registrationCompletionUri"]).to eq "http://www.example.com/fasp/providers/1/edit"
       end
     end
   end
@@ -63,6 +63,16 @@ RSpec.describe "Providers", type: :request do
       it "shows provider in list" do
         expect(response.body).to include(provider.name)
       end
+    end
+  end
+
+  describe "GET /providers/{id}/edit" do
+    context "with a pending registration" do
+      let!(:provider) { create :provider }
+
+      before do
+        get "/fasp/providers/#{provider.to_param}/edit"
+      end
 
       it "shows provider fingerprint" do
         expect(response.body).to include(provider.fingerprint)
@@ -74,9 +84,9 @@ RSpec.describe "Providers", type: :request do
     context "with a pending registration", vcr: { cassette_name: "services/provider_info_service_spec/success" } do
       let(:provider) { create :provider, :registered }
 
-      it "redirects back to provider list page" do
+      it "redirects back to provider page" do
         patch "/fasp/providers/#{provider.to_param}", params: { provider: { status: "pending" } }
-        expect(response).to redirect_to("/fasp/providers")
+        expect(response).to redirect_to("/fasp/providers/1/edit")
       end
 
       it "can accept provider" do
