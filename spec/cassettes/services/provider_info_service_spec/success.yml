@@ -63,6 +63,6 @@ http_interactions:
       - '332'
     body:
       encoding: UTF-8
-      string: '{"name":"FaspBase","privacyPolicy":[{"url":null,"language":null}],"capabilities":[{"id":"account_search","version":"0.1"},{"id":"data_sharing","version":"0.1"},{"id":"follow_recommendation","version":"0.1"},{"id":"trends","version":"0.1"}],"signInUrl":"http://localhost:3000/session/new","contactEmail":null,"fediverseAccount":null}'
+      string: '{"name":"FaspBase","privacyPolicy":[{"url":"https://example.com/privacy","language":"en"}],"capabilities":[{"id":"account_search","version":"0.1"},{"id":"data_sharing","version":"0.1"},{"id":"follow_recommendation","version":"0.1"},{"id":"trends","version":"0.1"}],"signInUrl":"http://localhost:3000/session/new","contactEmail":"test@example.com","fediverseAccount":"@test@example.com"}'
   recorded_at: Tue, 05 Aug 2025 16:57:44 GMT
 recorded_with: VCR 6.3.1

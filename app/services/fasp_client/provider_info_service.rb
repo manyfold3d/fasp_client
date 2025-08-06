@@ -10,8 +10,12 @@ module FaspClient
     def to_provider_attributes
       @response ||= JSON.parse(get.body)
       @response.slice(
-        "capabilities"
-      ).deep_symbolize_keys
+        "capabilities",
+        "privacyPolicy",
+        "signInUrl",
+        "contactEmail",
+        "fediverseAccount"
+      ).deep_transform_keys(&:underscore).deep_symbolize_keys
     end
 
     private

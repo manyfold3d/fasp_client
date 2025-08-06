@@ -15,6 +15,7 @@ module FaspClient
     serialize :ed25519_signing_key, coder: FaspClient::Ed25519SigningKeyCoder
 
     attribute :capabilities, :json, default: []
+    attribute :privacy_policy, :json, default: []
 
     before_validation on: :create do
       self.uuid ||= SecureRandom.uuid

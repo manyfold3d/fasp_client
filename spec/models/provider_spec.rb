@@ -61,6 +61,26 @@ describe FaspClient::Provider do
     it "automatically fetches provider capabilities when approved" do
       expect { provider.approved! }.to change { provider.has_capability? :account_search }.from(false).to(true)
     end
+
+    it "automatically fetches privacy policy when approved" do
+      provider.approved!
+      expect(provider.privacy_policy).not_to be_empty
+    end
+
+    it "automatically fetches fediverse account when approved" do
+      provider.approved!
+      expect(provider.fediverse_account).to eq "@test@example.com"
+    end
+
+    it "automatically fetches contact email when approved" do
+      provider.approved!
+      expect(provider.contact_email).to eq "test@example.com"
+    end
+
+    it "automatically fetches signin URL when approved" do
+      provider.approved!
+      expect(provider.sign_in_url).to eq "http://localhost:3000/session/new"
+    end
   end
 
   context "with known capabilities" do

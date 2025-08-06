@@ -20,6 +20,10 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_01_150509) do
     t.string "ed25519_signing_key"
     t.integer "status"
     t.json "capabilities"
+    t.json "privacy_policy"
+    t.string "sign_in_url"
+    t.string "contact_email"
+    t.string "fediverse_account"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
