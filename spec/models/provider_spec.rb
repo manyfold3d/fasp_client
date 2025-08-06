@@ -49,6 +49,14 @@ describe FaspClient::Provider do
       ])
       expect(provider.capabilities).not_to be_empty
     end
+
+    it "serialises and deserialises capabilities properly" do
+      provider.update!(capabilities: [
+        { id: "trends", version: "1.0" },
+        { id: "account_search", version: "1.0" }
+      ])
+      expect(provider.reload.capabilities).not_to be_empty
+    end
   end
 
   context "with known capabilities" do
