@@ -1,5 +1,4 @@
 require "linzer"
-require "byebug"
 
 module FaspClient
   class ProviderInfoService
