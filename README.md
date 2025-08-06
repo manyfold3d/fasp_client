@@ -10,7 +10,7 @@ IMPORTANT NOTE: This code is in its very early days. The database migration will
 * [Authentication](https://github.com/mastodon/fediverse_auxiliary_service_provider_specifications/blob/main/general/v0.1/protocol_basics.md#authentication) ✅
 * [Provider registration](https://github.com/mastodon/fediverse_auxiliary_service_provider_specifications/blob/main/general/v0.1/registration.md) ✅
 * [Accepting registration requests](https://github.com/mastodon/fediverse_auxiliary_service_provider_specifications/blob/main/general/v0.1/registration.md) ✅
-* [Selecting capabilities](https://github.com/mastodon/fediverse_auxiliary_service_provider_specifications/blob/main/general/v0.1/registration.md#selecting-capabilities) ⏳
+* [Selecting capabilities](https://github.com/mastodon/fediverse_auxiliary_service_provider_specifications/blob/main/general/v0.1/registration.md#selecting-capabilities) ✅
 * [Fetching FASP information](https://github.com/mastodon/fediverse_auxiliary_service_provider_specifications/blob/main/general/v0.1/provider_info.md) ✅
 * [Capability APIs](https://github.com/mastodon/fediverse_auxiliary_service_provider_specifications/blob/main/general/v0.1/provider_specifications.md) ⏳
 
