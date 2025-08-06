@@ -1,8 +1,6 @@
 # FaspClient
 A Rails engine that implements the non-provider side of the [Fediverse Auxiliary Service Provider (FASP)](https://fediscovery.org) standard.
 
-IMPORTANT NOTE: This code is in its very early days. The database migration will be changing up until the first release is tagged. DON'T use it in production yet, as you WILL need to rollback and re-migrate until it stabilises.
-
 ## Features
 
 * [Base URL discovery](https://github.com/mastodon/fediverse_auxiliary_service_provider_specifications/blob/main/general/v0.1/protocol_basics.md#base-url) ✅
@@ -49,6 +47,10 @@ conf.nodeinfo_metadata = -> do
 	{"faspBaseUrl" => Rails.application.routes.url_helpers.fasp_client_url}
 end
 ```
+
+Once you've done that, you can sign up to FASP providers using the URL of your site, and you should be able to register, approve, and choose capabilities.
+
+Currently a simple UI is included at `/fasp/providers`; the next version will let you customise this and add authentication support.
 
 ## License
 The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
