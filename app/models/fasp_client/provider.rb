@@ -47,5 +47,15 @@ module FaspClient
     def fetch_provider_info
       assign_attributes(ProviderInfoService.new(provider: self).to_provider_attributes) if approved?
     end
+
+    def enable(capability, version)
+      return unless has_capability?(capability, version)
+      CapabilityActivationService.new(provider: self, capability: capability, version: version).enable!
+    end
+
+    def disable(capability, version)
+      return unless has_capability?(capability, version)
+      CapabilityActivationService.new(provider: self, capability: capability, version: version).disable!
+    end
   end
 end

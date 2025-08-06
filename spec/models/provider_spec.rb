@@ -124,4 +124,28 @@ describe FaspClient::Provider do
       expect(provider.capability_ids).to eq [ :trends, :account_search ]
     end
   end
+
+  context "with a registered provider", :vcr do
+    subject(:provider) { create :provider, :registered }
+
+    before do
+      provider.approved!
+    end
+
+    it "can enable a capability" do
+      expect(provider.enable(:trends, "0.1")).to be true
+    end
+
+    it "returns a failure if the capability isn't available to be enabled" do
+      expect(provider.enable(:debug, "0.1")).to be_falsey
+    end
+
+    it "can disable a capability" do
+      expect(provider.disable(:trends, "0.1")).to be true
+    end
+
+    it "returns a failure if the capability isn't available to be disabled" do
+      expect(provider.disable(:debug, "0.1")).to be_falsey
+    end
+  end
 end
