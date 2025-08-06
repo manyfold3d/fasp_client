@@ -32,4 +32,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "rspec-uuid", "~> 0.6"
   spec.add_development_dependency "vcr", "~> 6.3"
   spec.add_development_dependency "webmock", "~> 3.25"
+  spec.add_development_dependency "factory_bot", "~> 6.5"
 end
