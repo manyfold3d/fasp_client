@@ -1,0 +1,29 @@
+<%= notice %>
+
+<h1>Provider: <%= link_to @provider.name, @provider.base_url %></h1>
+
+<div>
+	<p>Requested at: <%= @provider.created_at %></p>
+	<p>Status: <%= @provider.status %></p>
+
+	<% if @provider.pending? %>
+		<p>
+			Fingerprint:
+			<code>
+				<%= @provider.fingerprint %>
+			</code>
+		</p>
+		<%= button_to "Approve", @provider, method: :patch, params: {provider: {status: "approved"}}, form: {style: "display: inline"} %>
+		<%= button_to "Deny", @provider, method: :patch, params: {provider: {status: "denied"}}, form: {style: "display: inline"} %>
+	<% else %>
+		<table>
+			<% @provider.capabilities.each do |cap| %>
+				<tr>
+					<td><%= cap["id"] %> (<%= cap["version"] %>)</td>
+					<td><%= button_to "Enable", @provider, method: :patch, params: {provider: {enable_capability: {id: cap["id"], version: cap["version"]}}}, form: {style: "display: inline"} %></td>
+					<td><%= button_to "Disable", @provider, method: :patch, params: {provider: {disable_capability: {id: cap["id"], version: cap["version"]}}}, form: {style: "display: inline"} %></td>
+				</tr>
+			<% end %>
+		</table>
+	<% end %>
+</div>
