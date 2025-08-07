@@ -53,37 +53,57 @@ RSpec.describe "Providers", type: :request do
   end
 
   describe "GET /providers" do
-    context "with a pending registration" do
-      let!(:provider) { create :provider }
+    let!(:provider) { create :provider }
 
-      before do
+    before do
+    end
+
+    context "without an authenticated user" do
+      it "denies access" do
         get "/fasp/providers"
+        expect(response).to have_http_status :forbidden
       end
+    end
 
+    context "with an authenticated user", :with_authenticated_user do
       it "shows provider in list" do
+        get "/fasp/providers"
         expect(response.body).to include(provider.name)
       end
     end
   end
 
   describe "GET /providers/{id}/edit" do
-    context "with a pending registration" do
-      let!(:provider) { create :provider }
+    let!(:provider) { create :provider }
 
-      before do
-        get "/fasp/providers/#{provider.to_param}/edit"
+    before do
+      get "/fasp/providers/#{provider.to_param}/edit"
+    end
+
+    context "without an authenticated user" do
+      it "denies access" do
+        expect(response).to have_http_status :forbidden
       end
+    end
 
+    context "with an authenticated user", :with_authenticated_user do
       it "shows provider fingerprint" do
         expect(response.body).to include(provider.fingerprint)
       end
     end
   end
 
-  describe "PATCH /providers/{id}" do
-    context "with a pending registration", vcr: { cassette_name: "services/provider_info_service_spec/success" } do
-      let(:provider) { create :provider, :registered }
+  describe "PATCH /providers/{id}", vcr: { cassette_name: "services/provider_info_service_spec/success" } do
+    let(:provider) { create :provider, :registered }
 
+    context "without an authenticated user" do
+      it "denies access" do
+        patch "/fasp/providers/#{provider.to_param}", params: { provider: { status: "approved" } }
+        expect(response).to have_http_status :forbidden
+      end
+    end
+
+    context "with an authenticated user", :with_authenticated_user do
       it "redirects back to provider page" do
         patch "/fasp/providers/#{provider.to_param}", params: { provider: { status: "pending" } }
         expect(response).to redirect_to("/fasp/providers/1/edit")

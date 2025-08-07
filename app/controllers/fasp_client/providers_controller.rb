@@ -2,6 +2,7 @@ module FaspClient
   class ProvidersController < ApplicationController
     wrap_parameters :provider, include: [ :name, :baseUrl, :serverId, :publicKey ]
     protect_from_forgery with: :null_session, only: :create
+    before_action :authenticate, except: [ :create ]
     before_action :get_provider, except: [ :create, :index ]
 
     def create
