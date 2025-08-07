@@ -20,10 +20,10 @@ Add to your application's Gemfile:
 gem "fasp_client", github: "manyfold3d/fasp_client"
 ```
 
-Install and run migrations
+Install configuration and run migrations (you'll also want to do this when upgrading).
 
 ```shell
-bin/rails fasp_client:install:migrations && bin/rails db:migrate
+bin/rails fasp_client:install && bin/rails db:migrate
 ```
 
 ## Usage
@@ -48,9 +48,11 @@ conf.nodeinfo_metadata = -> do
 end
 ```
 
+Edit `config/initializers/fasp_client.rb` and add customise the template `authenticate` method. It should return true if the current user should be able to access the provider approval/edit pages.
+
 Once you've done that, you can sign up to FASP providers using the URL of your site, and you should be able to register, approve, and choose capabilities.
 
-Currently a simple UI is included at `/fasp/providers`; the next version will let you customise this and add authentication support.
+Currently a simple UI is included at `/fasp/providers`; the next version will let you customise this.
 
 ## License
 The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
