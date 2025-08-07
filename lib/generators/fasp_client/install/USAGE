@@ -1,0 +1,9 @@
+Description:
+    Copies initializer and installs migrations
+
+Example:
+    bin/rails generate fasp_client:install
+
+    This will create:
+        config/initializers/fasp_client.rb
+        db/migrations/*.fasp_client.rb

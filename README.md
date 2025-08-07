@@ -20,10 +20,10 @@ Add to your application's Gemfile:
 gem "fasp_client", github: "manyfold3d/fasp_client"
 ```
 
-Install and run migrations
+Install configuration and run migrations (you'll also want to do this when upgrading).
 
 ```shell
-bin/rails fasp_client:install:migrations && bin/rails db:migrate
+bin/rails fasp_client:install && bin/rails db:migrate
 ```
 
 ## Usage
