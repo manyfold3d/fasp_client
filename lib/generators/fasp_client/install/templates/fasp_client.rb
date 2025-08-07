@@ -4,6 +4,6 @@ FaspClient.configure do |conf|
     # return falsey. For example:
     #
     # Warden / Devise:
-    # request.env["warden"].user.is_administrator?
+    # request.env["warden"]&.user&.is_administrator?
   end
 end
