@@ -1,5 +1,7 @@
 module FaspClient
   class ApplicationController < ActionController::Base
+    layout FaspClient::Configuration.instance.layout
+
     private
 
     def authenticate
