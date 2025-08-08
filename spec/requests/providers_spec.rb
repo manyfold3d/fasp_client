@@ -72,6 +72,11 @@ RSpec.describe "Providers", type: :request do
         get "/fasp/providers"
         expect(response.body).to include("Dummy")
       end
+
+      it "can access route helpers from main app" do
+        get "/fasp/providers"
+        expect(response.body).to include("go home")
+      end
     end
   end
 
