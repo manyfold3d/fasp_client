@@ -1,0 +1,8 @@
+Description:
+    Copies fasp_client views to be overridden in main application
+
+Example:
+    bin/rails generate fasp_client:views
+
+    This will create:
+        app/views/fasp_client/**/*

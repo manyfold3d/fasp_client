@@ -23,7 +23,14 @@ gem "fasp_client", github: "manyfold3d/fasp_client"
 Install configuration and run migrations (you'll also want to do this when upgrading).
 
 ```shell
-bin/rails fasp_client:install && bin/rails db:migrate
+bin/rails generate fasp_client:install && bin/rails db:migrate
+```
+
+You will probably want to customise the view templates used for editing and listing providers.
+You can copy the default views like so:
+
+```shell
+bin/rails generate fasp_client:views
 ```
 
 ## Usage
