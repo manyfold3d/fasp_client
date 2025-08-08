@@ -1,5 +1,5 @@
 module FaspClient
-  class ApplicationController < ActionController::Base
+  class ApplicationController < FaspClient::Configuration.instance.controller_base.constantize
     layout FaspClient::Configuration.instance.layout
 
     private

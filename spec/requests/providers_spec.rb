@@ -77,6 +77,11 @@ RSpec.describe "Providers", type: :request do
         get "/fasp/providers"
         expect(response.body).to include("go home")
       end
+
+      it "uses main ApplicationController as base if specified" do
+        get "/fasp/providers"
+        expect(response.body).to include("using main ApplicationController as base")
+      end
     end
   end
 

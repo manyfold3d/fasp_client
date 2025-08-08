@@ -9,4 +9,8 @@ FaspClient.configure do |conf|
 
   # Configure the layout name that should be used for views; defaults to "application"
   # conf.layout = "application"
+
+  # For even tighter integration, you might want to use your own ApplicationController as the base
+  # class for FaspClient controllers.
+  # conf.controller_base = "::ApplicationController"
 end
