@@ -55,9 +55,6 @@ RSpec.describe "Providers", type: :request do
   describe "GET /providers" do
     let!(:provider) { create :provider }
 
-    before do
-    end
-
     context "without an authenticated user" do
       it "denies access" do
         get "/fasp/providers"
@@ -69,6 +66,11 @@ RSpec.describe "Providers", type: :request do
       it "shows provider in list" do
         get "/fasp/providers"
         expect(response.body).to include(provider.name)
+      end
+
+      it "uses application layout from main app by default" do
+        get "/fasp/providers"
+        expect(response.body).to include("Dummy")
       end
     end
   end

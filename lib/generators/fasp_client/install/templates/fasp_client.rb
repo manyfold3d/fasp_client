@@ -6,4 +6,7 @@ FaspClient.configure do |conf|
     # Warden / Devise:
     # request.env["warden"]&.user&.is_administrator?
   end
+
+  # Configure the layout name that should be used for views; defaults to "application"
+  # conf.layout = "application"
 end
