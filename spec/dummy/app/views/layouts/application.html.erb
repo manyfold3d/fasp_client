@@ -22,6 +22,10 @@
   </head>
 
   <body>
+    <%= link_to home_link_text, root_path %>
+
+    <%= "using main ApplicationController as base" if @main_app_base %>
+
     <%= yield %>
   </body>
 </html>
