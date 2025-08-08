@@ -2,6 +2,10 @@ module FaspClient
   class ApplicationController < FaspClient::Configuration.instance.controller_base.constantize
     layout FaspClient::Configuration.instance.layout
 
+    def fasp_client_controller?
+      true
+    end
+
     private
 
     def authenticate
