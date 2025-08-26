@@ -19,7 +19,7 @@ module FaspClient
         }
       )
       response = nil
-      Net::HTTP.start request.uri.hostname, request.uri.port do |http|
+      Net::HTTP.start request.uri.hostname, request.uri.port, use_ssl: (request.uri.scheme == "https") do |http|
         response = http.request request
       end
       response
