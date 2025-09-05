@@ -57,5 +57,9 @@ module FaspClient
       return unless has_capability?(capability, version)
       CapabilityActivationService.new(provider: self, capability: capability, version: version).disable!
     end
+
+    def follow_recommendation(account_uri)
+      FollowRecommendationService.new(provider: self).for(account_uri: account_uri)
+    end
   end
 end
