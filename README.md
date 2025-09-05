@@ -59,7 +59,19 @@ Edit `config/initializers/fasp_client.rb` and add customise the template `authen
 
 Once you've done that, you can sign up to FASP providers using the URL of your site, and you should be able to register, approve, and choose capabilities.
 
-Currently a simple UI is included at `/fasp/providers`; the next version will let you customise this.
+### Capabilities
+
+#### follow_recommendation
+
+Get a list of follow recommendations, returned as a simple array of account URIs. The account URI argument is required by the [spec](https://github.com/mastodon/fediverse_auxiliary_service_provider_specifications/blob/main/discovery/follow_recommendation/v0.1/follow_recommendation.md), but won't necessarily affect the results, depending on the server implementation.
+
+```ruby
+my_provider.follow_recommendation(your_account_uri)
+=> [
+	"https://mastodon.me.uk/users/Floppy",
+	"https://mastodon.social/users/Gargron"
+]
+```
 
 ## License
 The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
