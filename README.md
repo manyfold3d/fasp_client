@@ -61,6 +61,15 @@ Once you've done that, you can sign up to FASP providers using the URL of your s
 
 ### Capabilities
 
+#### account_search
+
+Get a list of accounts matching the provided search term, returned as a simple array of account URIs. Provide the optional `limit` parameter to control now many results are returned (default = 20).
+
+```ruby
+my_provider.account_search("mastodon", limit: 5)
+=> ["https://mastodon.social/users/Gargron"]
+```
+
 #### follow_recommendation
 
 Get a list of follow recommendations, returned as a simple array of account URIs. The account URI argument is required by the [spec](https://github.com/mastodon/fediverse_auxiliary_service_provider_specifications/blob/main/discovery/follow_recommendation/v0.1/follow_recommendation.md), but won't necessarily affect the results, depending on the server implementation.
