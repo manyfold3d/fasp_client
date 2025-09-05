@@ -61,5 +61,9 @@ module FaspClient
     def follow_recommendation(account_uri)
       FollowRecommendationService.new(provider: self).for(account_uri: account_uri)
     end
+
+    def account_search(query, limit: 20)
+      AccountSearchService.new(provider: self).search(query: query, limit: limit)
+    end
   end
 end
