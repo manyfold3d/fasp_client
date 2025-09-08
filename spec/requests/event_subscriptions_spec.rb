@@ -9,6 +9,11 @@ RSpec.describe "EventSubscriptions", type: :request do
     let(:request) { post "/fasp/data_sharing/v0/event_subscriptions", params: params, headers: headers, as: :json }
     let(:provider) { create :provider }
 
+    before do
+      allow(FaspClient::Provider).to receive(:find_by).with(server_id: provider.server_id).and_return(provider)
+      allow(provider).to receive(:valid_request?).and_return(true)
+    end
+
     context "when subscribing to account lifecycle events" do
       let(:params) { { "category": "account", "subscriptionType": "lifecycle" } }
 
@@ -113,6 +118,11 @@ RSpec.describe "EventSubscriptions", type: :request do
     }
     let(:request) { delete "/fasp/data_sharing/v0/event_subscriptions/#{subscription_id}", headers: headers }
     let(:provider) { create :provider }
+
+    before do
+      allow(FaspClient::Provider).to receive(:find_by).with(server_id: provider.server_id).and_return(provider)
+      allow(provider).to receive(:valid_request?).and_return(true)
+    end
 
     context "with a matching subscription" do
       let!(:subscription_id) { create(:event_subscription, :account_lifecycle, fasp_client_provider: provider).id }
