@@ -11,7 +11,7 @@ module FaspClient
       request["Content-Digest"] = "sha-256=:"+Digest::SHA256.base64digest(request.body || "")+":"
       Linzer.sign!(
         request,
-        key: linzer_key,
+        key: local_key,
         components: %w[@method @target-uri content-digest],
         label: "sig1",
         params: {
@@ -32,7 +32,7 @@ module FaspClient
 
     private
 
-    def private_pem
+    def local_pem
       asn1 = OpenSSL::ASN1.Sequence(
         [
           OpenSSL::ASN1::Integer(OpenSSL::BN.new(0)),
@@ -51,8 +51,8 @@ module FaspClient
       PEM
     end
 
-    def linzer_key
-      Linzer.new_ed25519_key(private_pem, @provider.server_id)
+    def local_key
+      Linzer.new_ed25519_key(local_pem, @provider.server_id)
     end
   end
 end
