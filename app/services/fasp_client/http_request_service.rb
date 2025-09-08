@@ -11,7 +11,7 @@ module FaspClient
       request["Content-Digest"] = "sha-256=:"+Digest::SHA256.base64digest(request.body || "")+":"
       Linzer.sign!(
         request,
-        key: linzer_key,
+        key: local_key,
         components: %w[@method @target-uri content-digest],
         label: "sig1",
         params: {
@@ -25,9 +25,16 @@ module FaspClient
       response
     end
 
+    def verified?(request_or_response)
+      Linzer::Message.register_adapter(ActionDispatch::Request, Linzer::Message::Adapter::Rack::Request)
+      Linzer.verify!(request_or_response, key: fasp_key)
+    rescue Linzer::Error
+      false
+    end
+
     private
 
-    def private_pem
+    def local_pem
       asn1 = OpenSSL::ASN1.Sequence(
         [
           OpenSSL::ASN1::Integer(OpenSSL::BN.new(0)),
@@ -46,8 +53,30 @@ module FaspClient
       PEM
     end
 
-    def linzer_key
-      Linzer.new_ed25519_key(private_pem, @provider.server_id)
+    def fasp_pem
+      asn1 = OpenSSL::ASN1.Sequence(
+        [
+          OpenSSL::ASN1.Sequence(
+            [
+              OpenSSL::ASN1.ObjectId("ED25519")
+            ]
+          ),
+          OpenSSL::ASN1.BitString(@provider.verify_key.to_bytes)
+        ]
+      )
+      <<~PEM
+        -----BEGIN PUBLIC KEY-----
+        #{Base64.strict_encode64(asn1.to_der)}
+        -----END PUBLIC KEY-----
+      PEM
+    end
+
+    def local_key
+      Linzer.new_ed25519_key(local_pem, @provider.server_id)
+    end
+
+    def fasp_key
+      Linzer.new_ed25519_key(fasp_pem, @provider.uuid)
     end
   end
 end
