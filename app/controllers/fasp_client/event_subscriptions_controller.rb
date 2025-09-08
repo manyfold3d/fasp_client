@@ -2,6 +2,7 @@ module FaspClient
   class EventSubscriptionsController < ApplicationController
     wrap_parameters :event_subscription, include: [ :category, :subscriptionType ]
     before_action :get_provider
+    before_action :verify_request
 
     def create
       options = params.deep_transform_keys(&:underscore).expect(event_subscription: [ :category, :subscription_type ])
