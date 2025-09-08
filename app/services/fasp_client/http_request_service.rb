@@ -25,6 +25,11 @@ module FaspClient
       response
     end
 
+    def verified?(request)
+      # Not implemented yet
+      true
+    end
+
     private
 
     def private_pem

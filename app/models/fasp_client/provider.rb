@@ -67,5 +67,9 @@ module FaspClient
     def account_search(query, limit: 20)
       AccountSearchService.new(provider: self).search(query: query, limit: limit)
     end
+
+    def valid_request?(request)
+      HttpRequestService.new(provider: self).verified?(request)
+    end
   end
 end

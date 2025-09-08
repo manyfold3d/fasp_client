@@ -93,6 +93,11 @@ RSpec.describe "EventSubscriptions", type: :request do
     context "with incorrect signature" do
       let(:params) { { "category": "account", "subscriptionType": "lifecycle" } }
 
+      before do
+        allow(provider).to receive(:valid_request?).and_return(false)
+        allow(FaspClient::Provider).to receive(:find_by).with(server_id: provider.server_id).and_return(provider)
+      end
+
       it "returns correct error code" do
         request
         expect(response).to have_http_status :unauthorized
@@ -159,6 +164,12 @@ RSpec.describe "EventSubscriptions", type: :request do
 
     context "with incorrect signature" do
       let(:subscription_id) { 1 }
+
+      before do
+        allow(FaspClient::Provider).to receive(:find_by).with(server_id: provider.server_id).and_return(provider)
+        allow(provider).to receive(:valid_request?).and_return(false)
+      end
+
       it "returns correct error code" do
         request
         expect(response).to have_http_status :unauthorized
