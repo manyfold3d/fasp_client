@@ -1,8 +1,13 @@
 RSpec.describe "EventSubscriptions", type: :request do
   describe "POST /data_sharing/v0/event_subscriptions" do
-    let(:headers) { { "Content-Type" => "application/json" } }
+    let(:headers) {
+      {
+        "Content-Type" => "application/json",
+        "Signature-Input" => "sig1=(\"@method\" \"@target-uri\" \"content-digest\"); created=1728467285; keyid=\"#{provider.server_id}\""
+      }
+    }
     let(:request) { post "/fasp/data_sharing/v0/event_subscriptions", params: params, headers: headers, as: :json }
-    let!(:provider) { create :provider }
+    let(:provider) { create :provider }
 
     context "when subscribing to account lifecycle events" do
       let(:params) { { "category": "account", "subscriptionType": "lifecycle" } }
@@ -75,7 +80,17 @@ RSpec.describe "EventSubscriptions", type: :request do
     end
 
 
-    context "when unauthenticated" do
+    context "with no key ID to identify provider" do
+      let(:params) { { "category": "account", "subscriptionType": "lifecycle" } }
+      let(:headers) { { "Content-Type" => "application/json" } }
+
+      it "returns correct error code" do
+        request
+        expect(response).to have_http_status :unauthorized
+      end
+    end
+
+    context "with incorrect signature" do
       let(:params) { { "category": "account", "subscriptionType": "lifecycle" } }
 
       it "returns correct error code" do
@@ -85,11 +100,17 @@ RSpec.describe "EventSubscriptions", type: :request do
     end
   end
   describe "DELETE /data_sharing/v0/event_subscriptions/{id}" do
-    let(:request) { delete "/fasp/data_sharing/v0/event_subscriptions/#{subscription_id}" }
-    let!(:provider) { create :provider }
+    let(:headers) {
+      {
+        "Content-Type" => "application/json",
+        "Signature-Input" => "sig1=(\"@method\" \"@target-uri\" \"content-digest\"); created=1728467285; keyid=\"#{provider.server_id}\""
+      }
+    }
+    let(:request) { delete "/fasp/data_sharing/v0/event_subscriptions/#{subscription_id}", headers: headers }
+    let(:provider) { create :provider }
 
     context "with a matching subscription" do
-      let(:subscription_id) { create(:event_subscription, :account_lifecycle, fasp_client_provider: provider).id }
+      let!(:subscription_id) { create(:event_subscription, :account_lifecycle, fasp_client_provider: provider).id }
 
       it "removes subscription" do
         expect { request }.to change(FaspClient::EventSubscription, :count).from(1).to(0)
@@ -114,8 +135,7 @@ RSpec.describe "EventSubscriptions", type: :request do
     end
 
     context "when removing a subscription from a different provider" do
-      let(:subscription_id) { create(:event_subscription, :account_lifecycle, fasp_client_provider: wrong_provider).id }
-      let(:wrong_provider) { create :provider }
+      let!(:subscription_id) { create(:event_subscription, :account_lifecycle, fasp_client_provider: create(:provider)).id }
 
       it "doesn't remove subscription" do
         expect { request }.not_to change(FaspClient::EventSubscription, :count)
@@ -127,7 +147,17 @@ RSpec.describe "EventSubscriptions", type: :request do
       end
     end
 
-    context "when unauthenticated" do
+    context "with no key ID to identify provider" do
+      let(:subscription_id) { 1 }
+      let(:headers) { { "Content-Type" => "application/json" } }
+
+      it "returns correct error code" do
+        request
+        expect(response).to have_http_status :unauthorized
+      end
+    end
+
+    context "with incorrect signature" do
       let(:subscription_id) { 1 }
       it "returns correct error code" do
         request

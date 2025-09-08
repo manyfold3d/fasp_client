@@ -2,7 +2,7 @@ FactoryBot.define do
   factory :provider, class: 'FaspClient::Provider' do
     name { "Example FASP" }
     base_url { "https://fasp.example.com" }
-    server_id { "b2ks6vm8p23w" }
+    server_id { SecureRandom.base36(12) }
     public_key { "pDnfhQyTX06RNDhyDI7yMlSohxcpOzHF/xUbJ5DTgAA=" }
 
     trait :registered do
