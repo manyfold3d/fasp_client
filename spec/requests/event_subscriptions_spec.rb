@@ -3,14 +3,14 @@ RSpec.describe "EventSubscriptions", type: :request do
     let(:headers) {
       {
         "Content-Type" => "application/json",
-        "Signature-Input" => "sig1=(\"@method\" \"@target-uri\" \"content-digest\"); created=1728467285; keyid=\"#{provider.server_id}\""
+        "Signature-Input" => "sig1=(\"@method\" \"@target-uri\" \"content-digest\"); created=1728467285; keyid=\"#{provider.uuid}\""
       }
     }
     let(:request) { post "/fasp/data_sharing/v0/event_subscriptions", params: params, headers: headers, as: :json }
     let(:provider) { create :provider }
 
     before do
-      allow(FaspClient::Provider).to receive(:find_by).with(server_id: provider.server_id).and_return(provider)
+      allow(FaspClient::Provider).to receive(:find_by).with(uuid: provider.uuid).and_return(provider)
       allow(provider).to receive(:valid_request?).and_return(true)
     end
 
@@ -100,7 +100,7 @@ RSpec.describe "EventSubscriptions", type: :request do
 
       before do
         allow(provider).to receive(:valid_request?).and_return(false)
-        allow(FaspClient::Provider).to receive(:find_by).with(server_id: provider.server_id).and_return(provider)
+        allow(FaspClient::Provider).to receive(:find_by).with(uuid: provider.uuid).and_return(provider)
       end
 
       it "returns correct error code" do
@@ -113,14 +113,14 @@ RSpec.describe "EventSubscriptions", type: :request do
     let(:headers) {
       {
         "Content-Type" => "application/json",
-        "Signature-Input" => "sig1=(\"@method\" \"@target-uri\" \"content-digest\"); created=1728467285; keyid=\"#{provider.server_id}\""
+        "Signature-Input" => "sig1=(\"@method\" \"@target-uri\" \"content-digest\"); created=1728467285; keyid=\"#{provider.uuid}\""
       }
     }
     let(:request) { delete "/fasp/data_sharing/v0/event_subscriptions/#{subscription_id}", headers: headers }
     let(:provider) { create :provider }
 
     before do
-      allow(FaspClient::Provider).to receive(:find_by).with(server_id: provider.server_id).and_return(provider)
+      allow(FaspClient::Provider).to receive(:find_by).with(uuid: provider.uuid).and_return(provider)
       allow(provider).to receive(:valid_request?).and_return(true)
     end
 
@@ -176,7 +176,7 @@ RSpec.describe "EventSubscriptions", type: :request do
       let(:subscription_id) { 1 }
 
       before do
-        allow(FaspClient::Provider).to receive(:find_by).with(server_id: provider.server_id).and_return(provider)
+        allow(FaspClient::Provider).to receive(:find_by).with(uuid: provider.uuid).and_return(provider)
         allow(provider).to receive(:valid_request?).and_return(false)
       end
 

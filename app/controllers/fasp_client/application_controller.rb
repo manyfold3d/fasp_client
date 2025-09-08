@@ -8,8 +8,8 @@ module FaspClient
 
     def get_provider
       head :unauthorized and return unless request.headers.key?("Signature-Input")
-      m = request.headers["Signature-Input"].match(/keyid=\"([[:alnum:]]+)\"/)
-      @provider = FaspClient::Provider.find_by(server_id: m[1])
+      m = request.headers["Signature-Input"].match(/keyid=\"([^\"]+)\"/)
+      @provider = FaspClient::Provider.find_by(uuid: m[1]) if m
       head :unauthorized if @provider.nil?
     end
 
