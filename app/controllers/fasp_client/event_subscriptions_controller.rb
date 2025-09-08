@@ -26,14 +26,5 @@ module FaspClient
       @subscription.destroy
       head :no_content
     end
-
-    private
-
-    def get_provider
-      head :unauthorized and return unless request.headers.key?("Signature-Input")
-      m = request.headers["Signature-Input"].match(/keyid=\"([[:alnum:]]+)\"/)
-      @provider = FaspClient::Provider.find_by(server_id: m[1])
-      head :unauthorized if @provider.nil? || !@provider.valid_request?(request)
-    end
   end
 end
