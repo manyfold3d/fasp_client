@@ -6,6 +6,7 @@ module FaspClient
     enum :status, { pending: nil, approved: 1, denied: -1 }, default: :pending, validate: true
 
     has_many :fasp_client_event_subscriptions, class_name: "FaspClient::EventSubscription", foreign_key: "fasp_client_provider_id"
+    has_many :fasp_client_backfill_requests, class_name: "FaspClient::BackfillRequest", foreign_key: "fasp_client_provider_id"
 
     validates :uuid, presence: true
     validates :name, presence: true
