@@ -70,6 +70,30 @@ my_provider.account_search("mastodon", limit: 5)
 => ["https://mastodon.social/users/Gargron"]
 ```
 
+#### data_sharing
+
+Automatically shares data from your app to the FASP on demand. To configure one of your models to be included in data sharing, include the appropriate concern and set the configuration:
+
+```ruby
+class MyModel < ApplicationRecord
+  include FaspClient::DataSharing::Lifecycle
+
+  fasp_share_lifecycle category: "account", uri_method: :my_canonical_uri
+
+	def my_canonical_uri
+		# Any method that returns the canonical activitypub URI for this object
+	end
+end
+```
+
+Only lifecycle events are currently supported, trending events will be implemented in future. Valid categories are currently `account`, or `content` (see [the spec](https://github.com/mastodon/fediverse_auxiliary_service_provider_specifications/blob/main/discovery/data_sharing/v0.1/data_sharing.md) for details).
+
+The actual announcements are then sent to all subscribed providers by a background ActiveJob, using the `default` queue. You can set a specific queue name by adding an optional `queue` parameter to `fasp_share_lifecycle`:
+
+```ruby
+fasp_share_lifecycle category: "account", uri_method: :my_canonical_uri, queue: "fasp_broadcasts"
+```
+
 #### follow_recommendation
 
 Get a list of follow recommendations, returned as a simple array of account URIs. The account URI argument is required by the [spec](https://github.com/mastodon/fediverse_auxiliary_service_provider_specifications/blob/main/discovery/follow_recommendation/v0.1/follow_recommendation.md), but won't necessarily affect the results, depending on the server implementation.
