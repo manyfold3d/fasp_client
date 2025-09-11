@@ -9,6 +9,7 @@ module FaspClient
       FaspClient::ApplicationController.helper Rails.application.helpers
 
       Linzer::Message.register_adapter(ActionDispatch::Request, Linzer::Message::Adapter::Rack::Request)
+      Linzer::Message.register_adapter(ActionDispatch::Response, Linzer::Message::Adapter::Rack::Response)
     end
   end
 end
