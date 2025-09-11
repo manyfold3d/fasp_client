@@ -3,19 +3,19 @@ module FaspClient
     module Lifecycle
       extend ActiveSupport::Concern
 
-      cattr_accessor :fasp_category
-      cattr_accessor :fasp_uri_method
-      cattr_accessor :fasp_job_queue
-
       class_methods do
         def fasp_share_lifecycle(category:, uri_method:, queue: "default")
-          @@fasp_uri_method = uri_method
-          @@fasp_category = category
-          @@fasp_job_queue = queue
+          self.fasp_uri_method = uri_method
+          self.fasp_category = category
+          self.fasp_job_queue = queue
         end
       end
 
       included do
+        cattr_accessor :fasp_category
+        cattr_accessor :fasp_uri_method
+        cattr_accessor :fasp_job_queue
+
         after_commit -> { fasp_emit_lifecycle_announcement "new" }, on: :create
         after_commit -> { fasp_emit_lifecycle_announcement "update" }, on: :update
         before_destroy -> { fasp_emit_lifecycle_announcement "delete" }
