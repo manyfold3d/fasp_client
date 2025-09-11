@@ -3,9 +3,9 @@ module FaspClient
     module Lifecycle
       extend ActiveSupport::Concern
 
-      mattr_accessor :fasp_category
-      mattr_accessor :fasp_uri_method
-      mattr_accessor :fasp_job_queue
+      cattr_accessor :fasp_category
+      cattr_accessor :fasp_uri_method
+      cattr_accessor :fasp_job_queue
 
       class_methods do
         def fasp_share_lifecycle(category:, uri_method:, queue: "default")
