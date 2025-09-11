@@ -1,3 +1,5 @@
+require "linzer"
+
 module FaspClient
   class Engine < ::Rails::Engine
     isolate_namespace FaspClient
