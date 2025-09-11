@@ -24,7 +24,6 @@ module FaspClient
     end
 
     def verified?(request_or_response)
-      Linzer::Message.register_adapter(ActionDispatch::Request, Linzer::Message::Adapter::Rack::Request)
       Linzer.verify!(request_or_response, key: @provider.fasp_linzer_key)
     rescue Linzer::Error
       false
