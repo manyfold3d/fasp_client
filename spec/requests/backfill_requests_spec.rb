@@ -17,6 +17,8 @@ RSpec.describe "BackfillRequests", type: :request do
     context "when requesting account backfill" do
       let(:params) { { "category": "account",  "maxCount": 100 } }
 
+      it_behaves_like "signed response"
+
       it "creates a backfill request" do
         expect { request }.to change(FaspClient::BackfillRequest, :count).from(0).to(1)
       end
@@ -38,6 +40,8 @@ RSpec.describe "BackfillRequests", type: :request do
 
     context "when subscribing to content lifecycle events" do
       let(:params) { { "category": "content", "maxCount": 100 } }
+
+      it_behaves_like "signed response"
 
       it "creates a backfill request" do
         expect { request }.to change(FaspClient::BackfillRequest, :count).from(0).to(1)

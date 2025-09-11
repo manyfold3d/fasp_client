@@ -2,6 +2,8 @@ module FaspClient
   class ApplicationController < FaspClient::Configuration.instance.controller_base.constantize
     layout FaspClient::Configuration.instance.layout
 
+    after_action :sign_response
+
     def fasp_client_controller?
       true
     end
@@ -21,6 +23,22 @@ module FaspClient
 
     def authenticate
       head :forbidden unless FaspClient::Configuration.instance.authenticate.call(request)
+    end
+
+    def sign_response
+      if @provider
+        response["date"] = Time.now.utc.to_s
+        response["content-digest"] = "sha-256=:"+Digest::SHA256.base64digest(response.body || "")+":"
+        Linzer.sign!(
+          response,
+          key: @provider.local_linzer_key,
+          components: %w[@status content-digest],
+          label: "sig1",
+          params: {
+            created: Time.now.utc.to_i
+          }
+        )
+      end
     end
   end
 end

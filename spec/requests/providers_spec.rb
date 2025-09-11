@@ -32,6 +32,8 @@ RSpec.describe "Providers", type: :request do
     context "when request succeeds" do
       before { request }
 
+      it_behaves_like "signed response"
+
       it "responds with JSON" do
         expect response.headers["Content-Type"] == "application/json"
       end

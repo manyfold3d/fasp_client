@@ -72,5 +72,44 @@ module FaspClient
     def valid_request?(request)
       HttpRequestService.new(provider: self).verified?(request)
     end
+
+    def local_linzer_key
+      asn1 = OpenSSL::ASN1.Sequence(
+        [
+          OpenSSL::ASN1::Integer(OpenSSL::BN.new(0)),
+          OpenSSL::ASN1.Sequence(
+            [
+              OpenSSL::ASN1.ObjectId("ED25519")
+            ]
+          ),
+          OpenSSL::ASN1.OctetString(OpenSSL::ASN1.OctetString(ed25519_signing_key.to_bytes).to_der)
+        ]
+      )
+      pem = <<~PEM
+        -----BEGIN PRIVATE KEY-----
+        #{Base64.strict_encode64(asn1.to_der)}
+        -----END PRIVATE KEY-----
+      PEM
+      Linzer.new_ed25519_key(pem, server_id)
+    end
+
+    def fasp_linzer_key
+      asn1 = OpenSSL::ASN1.Sequence(
+        [
+          OpenSSL::ASN1.Sequence(
+            [
+              OpenSSL::ASN1.ObjectId("ED25519")
+            ]
+          ),
+          OpenSSL::ASN1.BitString(verify_key.to_bytes)
+        ]
+      )
+      pem = <<~PEM
+        -----BEGIN PUBLIC KEY-----
+        #{Base64.strict_encode64(asn1.to_der)}
+        -----END PUBLIC KEY-----
+      PEM
+      Linzer.new_ed25519_key(pem, uuid)
+    end
   end
 end

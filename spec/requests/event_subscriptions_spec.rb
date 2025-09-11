@@ -17,6 +17,8 @@ RSpec.describe "EventSubscriptions", type: :request do
     context "when subscribing to account lifecycle events" do
       let(:params) { { "category": "account", "subscriptionType": "lifecycle" } }
 
+      it_behaves_like "signed response"
+
       it "creates a subscription" do
         expect { request }.to change(FaspClient::EventSubscription, :count).from(0).to(1)
       end
@@ -39,6 +41,8 @@ RSpec.describe "EventSubscriptions", type: :request do
     context "when subscribing to account trends" do
       let(:params) { { "category": "account", "subscriptionType": "trends" } }
 
+      it_behaves_like "signed response"
+
       it "doesn't create a subscription" do
         expect { request }.not_to change(FaspClient::EventSubscription, :count)
       end
@@ -51,6 +55,8 @@ RSpec.describe "EventSubscriptions", type: :request do
 
     context "when subscribing to content lifecycle events" do
       let(:params) { { "category": "content", "subscriptionType": "lifecycle" } }
+
+      it_behaves_like "signed response"
 
       it "creates a subscription" do
         expect { request }.to change(FaspClient::EventSubscription, :count).from(0).to(1)
@@ -73,6 +79,8 @@ RSpec.describe "EventSubscriptions", type: :request do
 
     context "when subscribing to content trends" do
       let(:params) { { "category": "content", "subscriptionType": "trends" } }
+
+      it_behaves_like "signed response"
 
       it "doesn't create a subscription" do
         expect { request }.not_to change(FaspClient::EventSubscription, :count)
@@ -126,6 +134,8 @@ RSpec.describe "EventSubscriptions", type: :request do
 
     context "with a matching subscription" do
       let!(:subscription_id) { create(:event_subscription, :account_lifecycle, fasp_client_provider: provider).id }
+
+      it_behaves_like "signed response"
 
       it "removes subscription" do
         expect { request }.to change(FaspClient::EventSubscription, :count).from(1).to(0)
