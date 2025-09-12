@@ -17,7 +17,7 @@ A Rails engine that implements the non-provider side of the [Fediverse Auxiliary
 Add to your application's Gemfile:
 
 ```ruby
-gem "fasp_client", github: "manyfold3d/fasp_client"
+gem "fasp_client"
 ```
 
 Install configuration and run migrations (you'll also want to do this when upgrading).
@@ -93,6 +93,8 @@ The actual announcements are then sent to all subscribed providers by a backgrou
 ```ruby
 fasp_share_lifecycle category: "account", uri_method: :my_canonical_uri, queue: "fasp_broadcasts"
 ```
+
+Only new lifecycle events are currently sent. Whilst backfill requests can be made, they aren't serviced yet (see https://github.com/manyfold3d/fasp_client/issues/25).
 
 #### follow_recommendation
 
