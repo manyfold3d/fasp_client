@@ -94,6 +94,12 @@ The actual announcements are then sent to all subscribed providers by a backgrou
 fasp_share_lifecycle category: "account", uri_method: :my_canonical_uri, queue: "fasp_broadcasts"
 ```
 
+You can also add an `only_if` argument to point to a method that returns true if an item should be shared, allowing you to only share certain items:
+
+```ruby
+fasp_share_lifecycle category: "account", uri_method: :my_canonical_uri, only_if: :public?
+```
+
 Only new lifecycle events are currently sent. Whilst backfill requests can be made, they aren't serviced yet (see https://github.com/manyfold3d/fasp_client/issues/25).
 
 #### follow_recommendation
