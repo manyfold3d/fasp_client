@@ -19,6 +19,12 @@ describe FaspClient::DataSharing::Lifecycle do
         event_type: "delete", category: "account", uri: "https://example.com/accounts/1"
       )
     end
+
+    it "doesn't emit event if only_if method returns false" do
+      account = Account.create
+      allow(account).to receive(:announce?).and_return(false)
+      expect { account.touch }.not_to have_enqueued_job(FaspClient::LifecycleAnnouncementJob)
+    end
   end
 
   context "when announcing content lifecycle" do
