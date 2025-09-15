@@ -10,7 +10,11 @@ A Rails engine that implements the non-provider side of the [Fediverse Auxiliary
 * [Accepting registration requests](https://github.com/mastodon/fediverse_auxiliary_service_provider_specifications/blob/main/general/v0.1/registration.md) ✅
 * [Selecting capabilities](https://github.com/mastodon/fediverse_auxiliary_service_provider_specifications/blob/main/general/v0.1/registration.md#selecting-capabilities) ✅
 * [Fetching FASP information](https://github.com/mastodon/fediverse_auxiliary_service_provider_specifications/blob/main/general/v0.1/provider_info.md) ✅
-* [Capability APIs](https://github.com/mastodon/fediverse_auxiliary_service_provider_specifications/blob/main/general/v0.1/provider_specifications.md) ⏳
+* [Discovery APIs](https://github.com/mastodon/fediverse_auxiliary_service_provider_specifications/blob/main/discovery/README.md)
+  * [account_search](https://github.com/mastodon/fediverse_auxiliary_service_provider_specifications/blob/main/discovery/account_search/v0.1/account_search.md) ✅
+  * [follow_recomendation](https://github.com/mastodon/fediverse_auxiliary_service_provider_specifications/blob/main/discovery/follow_recommendation/v0.1/follow_recommendation.md) ✅
+  * [data_sharing](https://github.com/mastodon/fediverse_auxiliary_service_provider_specifications/blob/main/discovery/data_sharing/v0.1/data_sharing.md) ✅ + ⏳ (no backfill yet)
+  * [trends](https://github.com/mastodon/fediverse_auxiliary_service_provider_specifications/blob/main/discovery/trends/v0.1/trends.md) ⏳
 
 ## Installation
 
