@@ -26,7 +26,7 @@ Gem::Specification.new do |spec|
 
   spec.add_development_dependency "rubocop-rails-omakase", "~> 1.1"
   spec.add_development_dependency "rspec-rails", "~> 8.0"
-  spec.add_development_dependency "byebug", "~> 12.0"
+  spec.add_development_dependency "byebug", "~> 13.0"
   spec.add_development_dependency "rspec-uuid", "~> 0.6"
   spec.add_development_dependency "vcr", "~> 6.3"
   spec.add_development_dependency "webmock", "~> 3.25"
